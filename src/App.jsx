@@ -1,10 +1,11 @@
 import React from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
-import from Home from "./pages/home";
-import from About  from "./pages/about";
-import from Profile from "./pages/profile";
-import from SignIn from "./pages/signin"  ;
-import from SignUp from "./pages/signup";
+import Header from './components/header';
+import Home from "./pages/home";
+import About  from "./pages/about";
+import  Profile from "./pages/profile";
+import  SignIn from "./pages/signin"  ;
+import  SignUp from "./pages/signup";
 
 
 
@@ -18,6 +19,7 @@ import from SignUp from "./pages/signup";
 export default function App() {
   return (
     <BrowserRouter>
+    <Header/>
     <Routes>
       <Route path="/" element={<Home/>}></Route>
       <Route path="/about" element={<About/>}></Route>
