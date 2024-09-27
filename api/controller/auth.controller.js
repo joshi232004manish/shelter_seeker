@@ -15,8 +15,10 @@ export const signup = async(req,res,next)=>{
     }
     catch(err){
         // res.status(500).json(e.message);
-        next(errorHandler(500,'Error found in function'));
+        // next(errorHandler(500,'Error found in function'));
+        next(err);
         // res.send(e.message);
+        // res.send("hii")
     }
 
 };
