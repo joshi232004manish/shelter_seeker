@@ -22,3 +22,14 @@ export const signup = async(req,res,next)=>{
     }
 
 };
+export const getalluser  = async(req,res) =>{
+    try{
+        const alluser  = await User.find();
+        res.status(201).json({
+            alluser
+        });
+    }
+    catch{
+        res.status(404).json("not fetched")
+    }
+}
