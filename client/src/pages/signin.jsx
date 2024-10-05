@@ -1,13 +1,16 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signInStart,signInSuccess,signInFailure } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth"; 
+// import { useSelector } from "react-redux";
 
 function signin() {
   const [formData, SetFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  const {error,loading} = useSelector((state)=>state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,11 +48,11 @@ function signin() {
         return;
       }
       // setError(null);
-      // console.log(data);
+      console.log(data);
       // console.log(data.statusCode);
       // setLoading(false);
       dispatch(signInSuccess(data));
-      navigate("/signin");
+      navigate("/");
     } catch (err) {
       dispatch(signInFailure(data.message));
     }
@@ -83,9 +86,7 @@ function signin() {
           >
             {loading ? "loading.." : "Submit"}
           </button>
-          <button className="bg-red-700 text-white uppercase py-4 rounded-xl text-xl hover:opacity-85">
-            Continue With Google
-          </button>
+          <OAuth/>
         </form>
         <div className="flex gap-3">
           <p>Don't Have an Account ?</p>
