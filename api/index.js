@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import userRouter from "../api/routes/user.route.js"
 import userAuth from "../api/routes/auth.route.js"
+import userListing from "../api/routes/listing.route.js"
 import cookieParser from "cookie-parser"
 
 
@@ -25,11 +26,13 @@ const port = 3000;
 app.use(express.json());
 app.use(cookieParser());
 
+
 // app.get('/test', (req, res) => {
 //   res.send('Hello World!')
 // })
 app.use('/api/user',userRouter);
 app.use('/api/auth',userAuth);
+app.use('/api/listing',userListing);
 
 app.use((err,req,res,next)=>{
   const statusCode = err.statusCode || 500;

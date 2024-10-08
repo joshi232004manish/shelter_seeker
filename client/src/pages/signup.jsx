@@ -22,7 +22,7 @@ function signup() {
     setLoading(true);
     try {
       const res = await fetch(
-        "/api/auth/signin",
+        "/api/auth/signup",
         {
           method: "POST",
           headers: {
@@ -44,7 +44,7 @@ function signup() {
       console.log(data);
       console.log(data.statusCode);
       setLoading(false);
-      navigate("/home");
+      navigate("/signin");
     } catch (err) {
       setLoading(false);
       setError(err.message);

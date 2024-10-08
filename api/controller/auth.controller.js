@@ -1,7 +1,7 @@
 import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs";
-import {errorHandler} from "../utils/error.js" 
-import jwt from 'jsonwebtoken'
+import {errorHandler} from "../utils/error.js" ;
+import jwt from 'jsonwebtoken';
 
 export const signup = async(req,res,next)=>{
     
@@ -58,7 +58,7 @@ export const google = async(req,res,next)=>{
     try {
         const validUser = await User.findOne({email:req.body.email});
         if(validUser){
-            const token = jwt.sign({id:validUser.email},process.env.JWT_SECRET);
+            const token = jwt.sign({id:validUser._id},process.env.JWT_SECRET);
             console.log(validUser._doc);
             const {password:pass,...rest}=validUser._doc;
             res.cookie('access_token',token,{httpOnly:true}).status(201).json(rest);
@@ -80,3 +80,12 @@ export const google = async(req,res,next)=>{
         next(error);
     }
 };
+
+export const signOut = async(req,res,next)=>{
+    try {
+        res.clearCookie('access_token');
+        res.status(200).json('You have been successfully logged out');
+    } catch (error) {
+        next(error);
+    }
+}
