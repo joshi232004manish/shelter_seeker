@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import  from 'redux-persist/es/storage/getStorage';
 import {ref,uploadBytesResumable,getStorage,getDownloadURL} from 'firebase/storage'
 import { app } from '../firebase';
@@ -17,12 +18,14 @@ function profile() {
   const [fileUploadError,setFileErrorUpload] = useState(false);
   const [formData,SetFormData] = useState({});
   const [updateSuccess,setUpdateSuccess] = useState(false);
+  const [userListings, setUserListings] = useState([]);
   const navigate = useNavigate();
+  const [showListingError,setShowListingError]= useState(null);
 
   
   const dispatch = useDispatch();
-  console.log(curUser);
-  console.log(filePerc);
+  // console.log(curUser);
+  // console.log(filePerc);
 
   console.log(file);
   console.log(formData);
@@ -133,6 +136,48 @@ function profile() {
       dispatch(signOutUserFailure(data.message))
     }
   }
+  const handleShowListings = async(e)=>{
+    e.preventDefault();
+    try {
+      const res = await fetch (`/api/user/listing/${curUser._id}`);
+      const data = await res.json();
+      if(data.success===false){
+        setShowListingError(data.message);
+        return;
+      }
+      setUserListings(data);
+      console.log(data);
+    } catch (error) {
+      setShowListingError(error.message)
+    }
+  }
+
+  const handleDeleteListing = async(listingId)=>{
+    // e.preventDefault();
+    try {
+      console.log(listingId);
+      console.log("hi")
+      const res = await fetch (`/api/listing/delete/${listingId}`,
+        {
+          method:"DELETE",
+        },
+      );
+      const data = await res.json();
+      if(data.success===false) {
+        console.log(data.message);
+        setShowListingError(data.message);
+        return;
+
+      }
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+      // setUserListings();
+      console.log(data);
+    } catch (error) {
+      setShowListingError(error.message);
+    }
+  }
 
   return (
     <div className='p-3 max-w-xl mx-auto'>
@@ -161,12 +206,49 @@ function profile() {
       <button disabled={loading} className='text-2xl bg-slate-700 text-white  py-2 px-2 ' >
         {loading? 'Loading..':'Update'}
         </button>
+        <Link to={"/listing"} >
       <button className='text-2xl bg-green-400 px-2' >Create Listings</button>
+      </Link>
       <ul className='flex justify-between'>
       <li><a href="" onClick={handleDeleteUser}>Delete Account</a></li>
       <li><a href="" onClick={handleSignOut}>Sign Out</a></li>
       </ul>
-      <span className='mx-auto'>Show Listings</span>
+      <span className='mx-auto'><a onClick={handleShowListings} href="">Show Listings</a></span>
+      <p className='text-red-700 mt-5'>
+        {showListingError ? showListingError : ''}
+      </p>
+      {
+        userListings && 
+        (<div>
+          <h2 className='text-4xl font-semibold text-center mb-5'>Your Listings</h2>
+          {
+            userListings.map((listing)=>{
+              return(<div className='flex mx-auto text-center justify-between my-4 border rounded-lg p-2 ' key={listing._id}>
+                <div>
+                 <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt='listing cover'
+                  className='h-16 w-16 object-contain'
+                />
+              </Link>
+              <Link
+                className='text-slate-700 font-semibold  hover:underline truncate flex-1'
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
+              </div>
+              <div className='flex flex-col justify-center '>
+                <button onClick={()=>handleDeleteListing(listing._id)} className='text-red-700 uppercase '>Delete</button>
+                <button className='text-green-700 uppercase'>Edit</button>
+              </div>
+              </div>)
+            })
+          }
+        </div>
+      )}
+
       <p>{error? error:''}</p>
       <p>{updateSuccess? 'User updated Successfully':''}</p>
       

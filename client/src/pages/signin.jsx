@@ -54,7 +54,7 @@ function signin() {
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (err) {
-      dispatch(signInFailure(data.message));
+      dispatch(signInFailure(err.message));
     }
 
     // setError(err.message)

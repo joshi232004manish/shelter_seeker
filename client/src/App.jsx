@@ -7,7 +7,8 @@ import  Profile from "./pages/profile";
 import  SignIn from "./pages/signin"  ;
 import  SignUp from "./pages/signup";
 import PrivateRoute from './components/privateRoute';
-
+import CreateListing from './pages/createListing';  
+import Lds from './pages/lds';
 
 
 
@@ -30,6 +31,8 @@ export default function App() {
       <Route element={<PrivateRoute/>}  >
       
         <Route path='/profile' element={<Profile/>} ></Route>
+        <Route path='/listing/:id' element={<Lds/>} ></Route>
+        <Route path='/listing' element={<CreateListing/>} ></Route>
       </Route>
       <Route path="/signin" element={<SignIn/>}></Route>
       <Route path="/signup" element={<SignUp/>}></Route>

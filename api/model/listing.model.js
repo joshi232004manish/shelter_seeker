@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const listingSchema = new mongoose(
+const listingSchema = new mongoose.Schema(
     {
         name:{
             type:String,
@@ -44,6 +44,10 @@ const listingSchema = new mongoose(
         },
         imageUrls:{
             type:Array,
+            required:true,
+        },
+        washrooms:{
+            type:String,
             required:true,
         },
         userRef:{
