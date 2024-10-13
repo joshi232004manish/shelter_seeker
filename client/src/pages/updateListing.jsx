@@ -151,7 +151,7 @@ useEffect(() => {
       if (data.success === false) {
         setError(data.message);
       }
-      navigate(`/listing/${curUser._id}`);
+      navigate(`/listing/${formData._id}`);
     } catch (error) {
       setError(error.message);
       console.log(error);
