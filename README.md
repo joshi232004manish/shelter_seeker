@@ -61,9 +61,9 @@ npm install
 cd client
 npm install
 
-MONGO = "mongodb+srv://shelter:shelter@cluster0.z6ans.mongodb.net/mern-ShelterSeek?retryWrites=true&w=majority&appName=Cluster0"
-JWT_SECRET = "inlrugnrsug98rer8tue448393w4"
-VITE_FIREBASE_API_KEY = "AIzaSyCjYUN2U999q4B_1_7DMCB6gfzKnNfcT88"
+MONGO = ""
+JWT_SECRET = ""
+VITE_FIREBASE_API_KEY = ""
 # Start backend
 npm run server
 
