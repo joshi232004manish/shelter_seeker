@@ -63,7 +63,10 @@ export const google = async(req,res,next)=>{
             const {password:pass,...rest}=validUser._doc;
             res.cookie('access_token',token,{httpOnly:true}).status(201).json(rest);
         }
-        else{
+
+        else
+        {
+
             const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
             const hashedPassword = bcryptjs.hashSync(generatedPassword,10);
             const newUser = new User({username:req.body.name.split(" ").join("").toLowerCase()+Math.random().toString(36).slice(-4),
@@ -89,3 +92,4 @@ export const signOut = async(req,res,next)=>{
         next(error);
     }
 }
+

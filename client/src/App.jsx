@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import Search from './pages/search';
 import Header from './components/header';
 import Home from "./pages/home";
 import About  from "./pages/about";
@@ -24,8 +25,9 @@ import Lds from './pages/listing';
 export default function App() {
   return (
     <BrowserRouter>
+    {/* <Routes> */}
     <Header/>
-    <Routes>
+    <Routes >
       <Route path="/" element={<Home/>}></Route>
       <Route path="/about" element={<About/>}></Route>
       {/* <Route path="/profile" element={<Profile/>}></Route> */}
@@ -36,10 +38,13 @@ export default function App() {
         <Route path='/listing' element={<CreateListing/>} ></Route>
         <Route path='/updatelisting/:id' element={<Updatelisting/>}></Route>
       </Route>
+      <Route path='/search' element={<Search/>}></Route>
       <Route path="/signin" element={<SignIn/>}></Route>
       <Route path="/signup" element={<SignUp/>}></Route>
 
     </Routes>
     </BrowserRouter>
+    
+    
   )
 }

@@ -54,9 +54,10 @@ function signup() {
     // setLoading(false);
   };
   return (
+    
     <div className="p-3 max-w-xl mx-auto">
       <h2 className="text-4xl text-center p-5 m-3 ">Sign Up</h2>
-      <div>
+      <div> 
         <form onSubmit={handleSubmit} action="" className="flex flex-col gap-5">
           <input
             type="text"
