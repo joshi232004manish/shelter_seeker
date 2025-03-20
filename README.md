@@ -61,9 +61,9 @@ npm install
 cd client
 npm install
 
-MONGO_URI=your-mongodb-uri
-JWT_SECRET=your-jwt-secret
-FIREBASE_API_KEY=your-firebase-api-key
+MONGO = "mongodb+srv://shelter:shelter@cluster0.z6ans.mongodb.net/mern-ShelterSeek?retryWrites=true&w=majority&appName=Cluster0"
+JWT_SECRET = "inlrugnrsug98rer8tue448393w4"
+VITE_FIREBASE_API_KEY = "AIzaSyCjYUN2U999q4B_1_7DMCB6gfzKnNfcT88"
 # Start backend
 npm run server
 
